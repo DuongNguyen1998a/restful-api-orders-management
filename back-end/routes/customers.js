@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const customerService = require('../services/customers_service');
 
-
 // Get All Customers
 router.get('/', async (req, res) => {
     await customerService.getCustomers(res);
