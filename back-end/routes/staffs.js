@@ -14,17 +14,17 @@ router.get('/:staffId', async (req, res) => {
 
 // Create New Staff
 router.post('/', async(req, res) => {
-    await customerService.createNewCustomer(req, res);
+    await staffService.createNewStaff(req, res);
 });
 
 // Update Staff
 router.patch('/:staffId', async(req, res) => {
-    await customerService.updateCustomer(req, res);
+    await staffService.updateStaff(req, res);
 });
 
 // Delete Staff
 router.delete('/:staffId', async(req, res) => {
-    await customerService.deleteCustomer(req, res);
+    await staffService.deleteStaff(req, res);
 });
 
 module.exports = router;
