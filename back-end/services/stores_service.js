@@ -2,12 +2,12 @@ const mssql = require('mssql');
 const dbConfig = require('../dbConfig');
 
 module.exports = {
-    async getStaffs(res) {
+    async getStores(res) {
 
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = 'select * from sales.staffs';
+            const query = 'select * from sales.stores';
 
             let response = await pool.request()
                 .query(query);
@@ -28,11 +28,12 @@ module.exports = {
         });
     },
 
-    async getStaff(req, res) {
+    async getStore(req, res) {
+
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = `select * from sales.staffs where staff_id=+${req.params.staffId}`;
+            const query = 'select * from sales.stores where store_id='+req.params.storeId;
 
             let response = await pool.request()
                 .query(query);
@@ -43,37 +44,38 @@ module.exports = {
             
             // close db connection
             pool.close();
-        } catch (err) {
+
+        } catch(err) {
             console.log(`Error: ${err}`);
         }
-
+        
         mssql.on('error', err => {
             console.log(`Db Error: ${err}`);
         });
     },
 
-    async createNewStaff(req, res) {
+    async createNewStore(req, res) {
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = `insert into sales.staffs(first_name, last_name, email, phone, active, store_id, manager_id) values(@first_name, @last_name, @email, @phone, @active, @store_id, @manager_id)`;
+            const query = `insert into sales.stores(store_name, phone, email, street, city, state, zip_code) values(@store_name, @phone, @email, @street, @city, @state, @zip_code)`;
 
             let response = await pool.request()
-            .input('first_name', mssql.VarChar(255), req.body.first_name)
-            .input('last_name', mssql.VarChar(255), req.body.last_name)
+            .input('store_name', mssql.VarChar(255), req.body.store_name)
+            .input('phone', mssql.VarChar(25), req.body.phone) 
             .input('email', mssql.VarChar(255), req.body.email)
-            .input('phone', mssql.VarChar(25), req.body.phone)  
-            .input('active', mssql.TinyInt, req.body.active)
-            .input('store_id', mssql.Int, req.body.store_id)
-            .input('manager_id', mssql.Int, req.body.manager_id)
+            .input('street', mssql.VarChar(255), req.body.street)
+            .input('city', mssql.VarChar(255), req.body.city)
+            .input('state', mssql.VarChar(255), req.body.state)
+            .input('zip_code', mssql.VarChar(255), req.body.zip_code)
 
-            .output('ofirst_name', mssql.VarChar(255), req.body.first_name)
-            .output('olast_name', mssql.VarChar(255), req.body.last_name)
+            .output('ostore_name', mssql.VarChar(255), req.body.store_name)
+            .output('ophone', mssql.VarChar(25), req.body.phone) 
             .output('oemail', mssql.VarChar(255), req.body.email)
-            .output('ophone', mssql.VarChar(25), req.body.phone)  
-            .output('oactive', mssql.TinyInt, req.body.active)
-            .output('ostore_id', mssql.Int, req.body.store_id)
-            .output('omanager_id', mssql.Int, req.body.manager_id)
+            .output('ostreet', mssql.VarChar(255), req.body.street)
+            .output('ocity', mssql.VarChar(255), req.body.city)
+            .output('ostate', mssql.VarChar(255), req.body.state)
+            .output('ozip_code', mssql.VarChar(255), req.body.zip_code)
             .query(query);
 
             res.status(201).json({
@@ -90,28 +92,28 @@ module.exports = {
         });
     },
 
-    async updateStaff(req, res) {
+    async updateStore(req, res) {
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = `update sales.staffs set first_name = @first_name, last_name = @last_name, email = @email, phone = @phone, active = @active, store_id = @store_id, manager_id = @manager_id where staff_id=${req.params.staffId}`;
+            const query = `update sales.stores set store_name = @store_name, phone = @phone, email = @email, street = @street, city = @city, state = @state, zip_code = @zip_code where store_id=${req.params.storeId}`;
 
             let response = await pool.request()
-            .input('first_name', mssql.VarChar(255), req.body.first_name)
-            .input('last_name', mssql.VarChar(255), req.body.last_name)
+            .input('store_name', mssql.VarChar(255), req.body.store_name)
+            .input('phone', mssql.VarChar(25), req.body.phone) 
             .input('email', mssql.VarChar(255), req.body.email)
-            .input('phone', mssql.VarChar(25), req.body.phone)  
-            .input('active', mssql.TinyInt, req.body.active)
-            .input('store_id', mssql.Int, req.body.store_id)
-            .input('manager_id', mssql.Int, req.body.manager_id)
+            .input('street', mssql.VarChar(255), req.body.street)
+            .input('city', mssql.VarChar(255), req.body.city)
+            .input('state', mssql.VarChar(255), req.body.state)
+            .input('zip_code', mssql.VarChar(255), req.body.zip_code)
 
-            .output('ofirst_name', mssql.VarChar(255), req.body.first_name)
-            .output('olast_name', mssql.VarChar(255), req.body.last_name)
+            .output('ostore_name', mssql.VarChar(255), req.body.store_name)
+            .output('ophone', mssql.VarChar(25), req.body.phone) 
             .output('oemail', mssql.VarChar(255), req.body.email)
-            .output('ophone', mssql.VarChar(25), req.body.phone)  
-            .output('oactive', mssql.TinyInt, req.body.active)
-            .output('ostore_id', mssql.Int, req.body.store_id)
-            .output('omanager_id', mssql.Int, req.body.manager_id)
+            .output('ostreet', mssql.VarChar(255), req.body.street)
+            .output('ocity', mssql.VarChar(255), req.body.city)
+            .output('ostate', mssql.VarChar(255), req.body.state)
+            .output('ozip_code', mssql.VarChar(255), req.body.zip_code)
             .query(query);
 
             res.status(200).json({
@@ -128,14 +130,14 @@ module.exports = {
         });
     },
 
-    async deleteStaff(req, res) {
+    async deleteStore(req, res) {
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = `delete from sales.staffs where staff_id=${req.params.staffId}`;
+            const query = `delete from sales.stores where store_id=${req.params.storeId}`;
 
             let response = await pool.request()
-                .output('staff_id', mssql.Int, req.params.staffId)
+                .output('store_id', mssql.Int, req.params.storeId)
                 .query(query);
 
             res.status(200).json({

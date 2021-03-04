@@ -12,8 +12,10 @@ app.use(bodyParser.json());
 // Import and Using Routes
 const customerRoute = require('./routes/customers');
 const staffRoute = require('./routes/staffs');
+const StoreRoute = require('./routes/stores');
 app.use('/customers', customerRoute);
 app.use('/staffs', staffRoute);
+app.use('/stores', StoreRoute);
 
 // Server listening on port 3000
 app.listen(process.env.SERVER_PORT, (err) => {
