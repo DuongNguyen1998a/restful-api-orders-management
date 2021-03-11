@@ -16,12 +16,14 @@ const StoreRoute = require('./routes/stores');
 const brandRoute = require('./routes/brands');
 const categoriesRotue = require('./routes/categories');
 const productRoute = require('./routes/products');
+const stockRoute = require('./routes/stocks');
 app.use('/customers', customerRoute);
 app.use('/staffs', staffRoute);
 app.use('/stores', StoreRoute);
 app.use('/brands', brandRoute);
 app.use('/categories', categoriesRotue);
 app.use('/products', productRoute);
+app.use('/stocks', stockRoute);
 
 // Server listening on port 3000
 app.listen(process.env.SERVER_PORT, (err) => {
