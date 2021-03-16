@@ -66,10 +66,9 @@ module.exports = {
         try {
             let pool = await mssql.connect(dbConfig);
 
-            const query = `insert into sales.orders(order_id, customer_id, order_status, order_date, required_date, shipped_date, store_id, staff_id) values(@order_id, @customer_id, @order_status, @order_date, @required_date, @shipped_date, @store_id, @staff_id)`;
+            const query = `insert into sales.orders(customer_id, order_status, order_date, required_date, shipped_date, store_id, staff_id) values(@customer_id, @order_status, @order_date, @required_date, @shipped_date, @store_id, @staff_id)`;
 
             let response = await pool.request()
-                .input('order_id', mssql.Int, req.body.order_id)
                 .input('customer_id', mssql.Int, req.body.customer_id)
                 .input('order_status', mssql.Int, req.body.order_status)
                 .input('order_date', mssql.Date, req.body.order_date)
@@ -78,7 +77,6 @@ module.exports = {
                 .input('store_id', mssql.Int, req.body.store_id)
                 .input('staff_id', mssql.Int, req.body.staff_id)
 
-                .output('oorder_id', mssql.Int, req.body.order_id)
                 .output('ocustomer_id', mssql.Int, req.body.customer_id)
                 .output('oorder_status', mssql.Int, req.body.order_status)
                 .output('oorder_date', mssql.Date, req.body.order_date)
@@ -110,7 +108,6 @@ module.exports = {
                 staff_id = @staff_id where order_id = ${req.params.orderId}`;
 
             let response = await pool.request()
-                .input('order_id', mssql.Int, req.body.order_id)
                 .input('customer_id', mssql.Int, req.body.customer_id)
                 .input('order_status', mssql.Int, req.body.order_status)
                 .input('order_date', mssql.Date, req.body.order_date)
@@ -119,7 +116,7 @@ module.exports = {
                 .input('store_id', mssql.Int, req.body.store_id)
                 .input('staff_id', mssql.Int, req.body.staff_id)
 
-                .output('oorder_id', mssql.Int, req.body.order_id)
+                .output('oorder_id', mssql.Int, req.params.orderId)
                 .output('ocustomer_id', mssql.Int, req.body.customer_id)
                 .output('oorder_status', mssql.Int, req.body.order_status)
                 .output('oorder_date', mssql.Date, req.body.order_date)
