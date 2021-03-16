@@ -12,19 +12,19 @@ router.get('/:orderId', async (req, res) => {
     await orderService.getOrder(req, res);
 });
 
-// Create New Customer
+// Create New Order
 router.post('/', async(req, res) => {
-    await customerService.createNewCustomer(req, res);
+    await orderService.createNewOrder(req, res);
 });
 
-// Update Customer
-router.patch('/:customerId', async(req, res) => {
-    await customerService.updateCustomer(req, res);
+// Update Order
+router.patch('/:orderId', async(req, res) => {
+    await orderService.updateOrder(req, res);
 });
 
-// Delete Customer
-router.delete('/:customerId', async(req, res) => {
-    await customerService.deleteCustomer(req, res);
+// Delete Order
+router.delete('/:orderId', async(req, res) => {
+    await orderService.deleteOrder(req, res);
 });
 
 module.exports = router;
