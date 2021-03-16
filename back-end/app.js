@@ -18,6 +18,7 @@ const categoriesRotue = require('./routes/categories');
 const productRoute = require('./routes/products');
 const stockRoute = require('./routes/stocks');
 const orderRoute = require('./routes/orders');
+const orderItemRoute = require('./routes/order_items');
 app.use('/customers', customerRoute);
 app.use('/staffs', staffRoute);
 app.use('/stores', StoreRoute);
@@ -26,6 +27,7 @@ app.use('/categories', categoriesRotue);
 app.use('/products', productRoute);
 app.use('/stocks', stockRoute);
 app.use('/orders', orderRoute);
+app.use('/order-items', orderItemRoute);
 
 // Server listening on port 3000
 app.listen(process.env.SERVER_PORT, (err) => {
