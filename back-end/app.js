@@ -30,11 +30,11 @@ app.use('/orders', orderRoute);
 app.use('/order-items', orderItemRoute);
 
 // Server listening on port 3000
-app.listen(process.env.SERVER_PORT || 3000, (err) => {
+app.listen(process.env.PORT || 3000, (err) => {
     if (err) {
         console.log(`Server Error: ${err}`);
     }
     else {
-        console.log(`Server listening port ${process.env.SERVER_PORT}`);
+        console.log(`Server listening port ${process.env.PORT}`);
     }
 });
